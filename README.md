@@ -1,5 +1,7 @@
 # falsify-the-problem
 
+English | [简体中文](README.zh-CN.md)
+
 > Stop solving the wrong problem faster.
 
 A lightweight Agent Skill that challenges the problem formulation before
