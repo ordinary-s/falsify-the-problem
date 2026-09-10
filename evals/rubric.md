@@ -87,3 +87,61 @@ Record these separately; a high total does not erase a material contract failure
 For each flag, cite the output, explain the consequence, and state whether it
 requires a file revision, a test-case correction, or more independent testing.
 This is a developmental rubric, not a validated psychometric instrument.
+
+## Hard-suite diagnostics (separate from the 10-point score)
+
+Use [hard cases](hard-cases.md) and [coverage cases](coverage-cases.md) with the
+same five dimensions, normalization, and penalties above. Do not award extra
+points for new terminology, a challenger count, or shorter text. A baseline can
+earn full credit in ordinary language. A grounded alternative test is acceptable
+when it can change the decision at comparable cost and scope.
+
+Record these failure modes independently, with the case/turn and supporting quote:
+
+- **Shared-frame miss:** live candidates retain the same consequential untested
+  premise, overlooking an alternative supported or made plausible by the packet.
+- **Premature solution:** commits to an intervention before its framing is supported.
+- **Cause/formulation conflation:** cosmetic cause variants substitute for a change
+  in failure variable, target, boundary, abstraction, population, or decision scope.
+- **Wrong abstraction/target:** optimizes a real component or proxy while missing
+  the problem motivating the decision.
+- **Partial-cause overclaim:** confuses contributor, primary, or exclusive explanation.
+- **Confounded winner:** assigns an outcome to one candidate when live rivals predict it.
+- **Update failure:** preserves a contradicted conclusion or forces unexplained
+  evidence into the current set. Strengthening an already-live outside-frame
+  candidate is valid; do not require declaring the set incomplete in that situation.
+- **Low-information checklist:** substitutes multiple investigations for one useful
+  comparison, or asks for much more unavailable evidence than the decision needs.
+
+Missing an author's preferred mechanism is not itself failure. Judge what the
+public evidence permits; an inaccessible hidden answer cannot be required.
+Localizing a delay or measurement gap does not establish its exact causal mechanism.
+Report denominators for each applicable pattern, overlaps, and case-level results;
+one favorable pair does not establish a stable class-level advantage.
+
+### Output Efficiency
+
+Record per response and per case, separately from quality:
+
+- Whitespace-delimited visible answer words (`len(text.split())`), including
+  headings and code. Sum turns for per-case cost; also report first-turn and delta
+  costs separately. Exclude tool/action logs and evaluation administration.
+- Number of distinct visible live formulations, counting the current one and
+  merged duplicates once. Count by meaning, not labels; zero is valid for BYPASS.
+- Number of visible primary comparisons per round, noting executed/pending status.
+  A retrospective mention of the same comparison is not a second test; an independent
+  follow-up is a new one even if hidden inside a single heading. Record useful
+  completed and subsequent pending rounds separately.
+- Repeated unchanged reasoning blocks on later turns: count substantively repeated
+  observation/candidate/assumption/prediction blocks; a brief identifying reference
+  or an unchanged verdict needed for the handoff is not repetition.
+- Verbosity flag and evidence: unnecessary inventories, repeated explanations,
+  method narration, or disproportionate output. The soft word guides alone are
+  not a violation; record justified expansion and missing information separately.
+
+Freeze representative normal/fast/deep strata before execution; do not recategorize
+long answers to make the target pass. Report normal-case median against the
+engineering target of roughly 300 words and, when a comparable baseline exists,
+the ratio of arm medians against roughly 1.5x. These are not quality thresholds.
+Do not reward loss of provenance, contrasting predictions, scope, or handoff.
+Words are a reading-cost proxy, not measured model tokens, latency, or money.

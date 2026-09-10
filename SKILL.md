@@ -84,9 +84,9 @@ generation grounding, evaluation validity, and query distribution can change the
 framing when they predict meaningfully different evidence.
 
 Keep only plausible, decision-relevant alternatives. Do not mechanically fill a
-quota. Typical sizes, including the current formulation, are 1-3 for simple,
-3-5 for normal, and 5-7 for complex or high-stakes problems. Fewer is fine when
-supported; more candidates are not evidence of better reasoning.
+quota. Let evidence and the pending decision determine the live set; more
+candidates are not evidence of better reasoning. Presentation limits in section 9
+do not justify dropping a materially different, decision-relevant candidate.
 
 Candidates need not be mutually exclusive. If several mechanisms coexist, test
 which framing explains the material failure at the relevant scope; do not force a
@@ -108,6 +108,17 @@ a capacity framing predicts rising pre-service wait with concurrency; a measurem
 framing predicts disagreement between raw samples and reported aggregation.
 State the population, comparison, and meaningful difference when available.
 Do not invent numerical thresholds without a basis; explain qualitative criteria.
+
+Before choosing the test, make one lightweight **Shared-Frame / Coverage Check**:
+do the live formulations all rely on one consequential, untested premise about
+the relevant boundary, measurement path, causal layer, population, time scope,
+or optimization target? Select what matters here; do not audit a category checklist.
+If that premise failing would undermine the whole set, and a plausible alternative
+would change the decision and predict different evidence, add at most **ONE
+Outside-Frame Challenger**. Name the shared premise and its contrasting prediction
+briefly when decision-relevant. Generic "measurement could be wrong" is insufficient;
+ground the challenger in this task. If none is warranted, proceed without one.
+Do not chain coverage audits or expand the set merely to satisfy a quota.
 
 ## 5. Select ONE Primary Discriminating Test for this round
 
@@ -135,9 +146,9 @@ Specify:
 One test can require several retrieval or computation steps if they serve one
 predeclared comparison and outcome map. It cannot hide independent investigations
 inside a bundle such as "check logs, metrics, configuration, and tests."
-Do not force unexplained observations into the candidates' existing categories.
 Include an unaccounted or outside-boundary outcome when the observation method
 could omit relevant stages; an artifact's label does not define its boundaries.
+Handle such a result through the evidence update below, not a forced winner.
 Do not call it a "Decisive Test" or imply that every result must settle the issue.
 
 ## 6. Gather evidence instead of deflecting it
@@ -174,8 +185,13 @@ evidence; do not reinterpret it merely to preserve an earlier position.
 After the selected test:
 
 1. Attribute the result and compare it with the predicted outcomes.
-2. Update affected candidates using the labels below, with a short evidence reason.
-3. Re-check load-bearing assumptions, including assumptions invalidated by the test.
+2. If a consequential result fits no live formulation, mark it **OUTSIDE CURRENT
+   FRAME**: the set may be incomplete. This is an evidence diagnostic, not a sixth
+   verdict. Preserve the unexplained residual; do not award it to the closest
+   candidate. Repeat the lightweight coverage check once for this new evidence,
+   adding at most one grounded challenger if warranted. Otherwise leave it unresolved.
+3. Update affected candidates using the labels below with a short evidence reason,
+   and re-check load-bearing assumptions invalidated by the test.
 4. Merge redundant candidates; retain uncertainty and scope limits.
 5. Apply the STOP conditions. If a further discriminating observation is worth its
    cost, start the next round with the updated live set and one new Primary Test.
@@ -241,41 +257,36 @@ If it warrants KEEP, release it without redundant testing; then the host can sol
 within the user's authorized scope. Do not implement the original solution merely
 because an alternative explanation was found. The skill itself never designs it.
 
-## 9. Keep the output proportional
+## 9. Default to compact output; disclose detail as needed
 
-For a simple verified case, a source-backed observation, a one-line formulation,
-`Verdict: KEEP`, and `Solutioning: ALLOWED` may suffice. No invented alternatives,
-assumption inventory, or test is required. The host then resumes the original task.
+Complete the relevant checks, but show only decision-relevant evidence and
+rationale, not an exhaustive reasoning transcript or hidden chain of thought.
+Choose the shortest path that preserves the decision, discrimination, and scope:
 
-For a complex case, use these sections when they help the reader:
+| Path | When | Visible output |
+| --- | --- | --- |
+| Fast | BYPASS, strong KEEP, verified deterministic diagnosis, or simple low uncertainty | Usually 2-5 sentences: source-backed observation, framing, verdict/release if entered, then host continuation. No invented alternative or new test. BYPASS needs no adversarial report. |
+| Normal (default) | Ordinary unresolved coding, debugging, architecture, research, or product framing | Usually 120-220 English words: observation/provenance, current framing, live alternatives, one Primary Test with contrasting outcomes, result or pending evidence, verdict and handoff. Fold each key assumption into its prediction. |
+| Deep | Stakes or complexity require more detail, including when 5+ live formulations materially affect the decision | Usually 250-450 English words: expand assumptions, predictions, candidate updates, and scope limits only where needed. Domain alone does not require this path. |
 
-```markdown
-## Observation
-Sources, scope, and limits.
-## Interpretation vs Fact
-Separate interpretation, causal hypothesis, and proposed solution.
-## Current Problem Formulation
-State the original framing; label inference.
-## Competing Formulations
-Live candidates and their material differences.
-## Load-bearing Assumptions
-Assumptions tied to the candidates they support.
-## Distinct Predictions
-Contrasting observable outcomes for important candidates.
-## Primary Discriminating Test
-Test:
-Why this first:
-Possible outcomes:
-Remaining uncertainty:
-## Evidence Update
-Executed result with provenance, or clearly pending evidence.
-Candidate updates and invalidated assumptions; next round only if useful.
-## Verdict
-Overall: one of KEEP / WEAKEN / KILL / REFORMULATE / INSUFFICIENT EVIDENCE
-Reformulated Problem: only for REFORMULATE
-Solutioning: ALLOWED / BLOCKED / NOT YET, with the scope and handoff
-```
+These are soft presentation guides, not word quotas or correctness gates; use
+equivalent brevity in other languages. Normal output usually shows 2-4 live
+formulations including the current one, at most 3-4 by default. Do not conceal a
+consequential challenger to fit that range: merge genuine redundancies, or expand
+the output when needed. A supported single formulation needs no padding.
 
-Summarize observable evidence and decision rationale; do not produce a theatrical
-debate or an exhaustive reasoning transcript. Stop once the framing decision is
-supported, even if further root-cause work belongs to the downstream solver.
+Keep provenance compact (for example, "report.txt, supplied summary"), never omit
+it or upgrade it. State whether the one primary comparison ran or is pending;
+preliminary localization is not a discriminating test when all candidates predict
+it. Give one clear verdict and release status, plus **Reformulated Problem:** when
+required. Headings are optional; do not mechanically reproduce all workflow steps.
+
+On later turns, use **delta output**: new evidence/source, what changed, affected
+candidate updates and scope, a new Primary Test only if useful, then verdict/handoff.
+Do not repeat unchanged observations, formulations, assumptions, or predictions.
+Reference prior candidates briefly so the update remains intelligible.
+
+Do not repeat the user prompt, narrate internal exploration, stage a debate,
+explain the methodology unless asked, or list discarded/merged candidates unless
+their change matters now. Stop once the framing decision is supported; mark any
+authorized downstream work separately and let the host continue.

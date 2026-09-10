@@ -37,6 +37,12 @@ The protocol stays the same across domains.
    when another discriminating observation is worth its cost.
 6. Stop with an overall verdict and return control to the host agent.
 
+Before choosing the Primary Discriminating Test, the skill checks whether all
+live formulations share the same consequential, untested frame. It may add one
+grounded outside-frame challenger; unexplained evidence can reopen that check.
+Output defaults to compact Fast / Normal / Deep paths, with later turns showing
+only changed evidence and decisions.
+
 | Overall verdict | Meaning | Handoff |
 | --- | --- | --- |
 | KEEP | Current framing is sufficiently validated and best-supported | Solutioning ALLOWED; host resumes authorized work |
@@ -185,6 +191,19 @@ adds regressions and incomplete coverage. It tests whether an agent distinguishe
 matched-subset outcomes from an unresolved outcome for all selected records.
 Both arms again scored 10/10; the record preserves the first-test labeling
 ambiguity and its stricter alternative score. This remains a single authored pair.
+
+The [harder formulation suite](evals/hard-suite.md) adds 12 cases targeting partial
+explanations, shared blind spots, wrong targets, confounded tests, and reversals,
+including two verified negative controls. The [coverage micro-suite](evals/coverage-eval.md)
+adds six targeted cases across five domains. These development records report
+quality, failure modes, and visible answer length separately; the earlier results
+remain historical snapshots, not results for the revised skill.
+
+In this run, the nine predeclared normal hard cases had median visible lengths of
+218 words with the previous Skill, 178 with the revised Skill, and 117 with the raw
+baseline (turns summed per case). Coverage scores tied at 10/10 on all six targeted
+cases, and R03's first-round input-path omission remains. This supports a narrower
+output-cost finding, not a demonstrated general coverage or raw-model advantage.
 
 ## Design principles
 

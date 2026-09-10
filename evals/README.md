@@ -13,6 +13,11 @@ Do not reward a longer answer, more alternatives, or automatic rejection.
   with a fixed skill snapshot, separate contexts, and auditable numerical checks.
 - [R03 missing-pair test](r03-stress.md): fewer initial cues, mixed corrections and
   regressions, and incomplete comparison coverage with an unchanged skill.
+- [Harder cases](hard-cases.md) and [hard-suite record](hard-suite.md): 12 cases
+  probing partial truth, shared premises, targets, confounding, and reversals;
+  paired quality/efficiency results and seven selected historical regressions.
+- [Coverage cases](coverage-cases.md) and [coverage record](coverage-eval.md): six
+  focused shared-frame cases across five domains, including a staged residual.
 
 ## Minimal manual procedure
 
@@ -60,6 +65,30 @@ An author applying the skill to a case in the same context is a manual dry-run,
 not independent forward-testing. Label it accordingly. A baseline that already
 has the skill or case answers in context is contaminated and cannot support a
 clean comparison. Do not conceal contamination, failed runs, or mixed results.
+
+## Harder-suite controls
+
+Freeze the skill, public packets, reviewer expectations, and output strata before
+execution. Only the skill arm loads the skill; do not send either executor the
+case titles, tags, rubric, hidden premise, expected answer, or future evidence.
+Both arms receive identical tasks and report contents in separate fixture copies.
+Deliver later evidence after the first response finishes, without adapting it to
+the answer. Record whether isolation is per case or per batch: batch execution
+shares context across its cases and is a weaker independence claim.
+
+Use the existing 10-point rubric. Record the additional failure-mode and
+[Output Efficiency diagnostics](rubric.md#output-efficiency) independently, with
+denominators and verbatim responses. Distinguish test selection from preliminary
+localization and from later supplied results. Treat correct baseline answers and
+null or mixed differences as findings; do not tune the baseline to fail. If a
+case expectation is defective, preserve original grades and report adjudication
+separately. If execution is unavailable, label that entry **NOT EXECUTED**;
+structural checks are **desk-reviewed only**.
+
+Make the isolated grader packet self-contained: include the referenced case
+definitions as well as the rubric, or explicitly resolve their relevant criteria
+inside the packet. Record missing references as a grading limitation; do not
+silently invent their contents or rewrite an already returned grade.
 
 ## What to record
 
