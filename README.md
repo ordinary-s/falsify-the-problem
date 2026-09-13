@@ -2,6 +2,8 @@
 
 English | [简体中文](README.zh-CN.md)
 
+[Project website](https://ordinary-s.github.io/falsify-the-problem/)
+
 > Stop solving the wrong problem faster.
 
 An open-source Agent Skill for problem framing and assumption testing across

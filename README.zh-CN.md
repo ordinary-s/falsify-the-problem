@@ -2,6 +2,8 @@
 
 [English](README.md) | 简体中文
 
+[项目介绍网站](https://ordinary-s.github.io/falsify-the-problem/zh/)
+
 > 尽早发现：你可能正在解决错误的问题。
 
 一个用于问题定义检验与假设检验的开源 Agent Skill，适用于编码、调试、架构、科研与产品决策。

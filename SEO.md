@@ -4,20 +4,31 @@ This is the single maintenance guide for the two static introduction pages.
 Content clarity and crawlable pages are the scope of this work. No search ranking,
 indexing deadline, traffic increase, installation count, or model advantage is promised.
 
-## Starting state and suggested repository metadata
+## Publication status — 2026-09-13
 
-Read-only inspection on 2026-09-13 confirmed:
+The maintainer authorized publication after local implementation and checks.
 
-- Repository: <https://github.com/ordinary-s/falsify-the-problem>.
-- Current and remote default branch: `master`; inspected commit: `a43ab07`.
-- GitHub API: `has_pages=false`, empty Website; Pages endpoint returned 404.
-  The proposed English public URL also returned HTTP 404.
-- No existing website directory, CNAME, deployment workflow, or custom-domain
-  configuration was found in this repository. Recheck Pages settings at publication.
-- No Bing account verification code, indexing report, or search-performance data
-  was available. Search-result visibility was not used to diagnose indexing.
+- The initial site was committed and pushed as `a90ec94`.
+  The [first Pages deployment](https://github.com/ordinary-s/falsify-the-problem/actions/runs/34754228505)
+  completed successfully.
+- GitHub Pages publishes from `master`, folder `/docs`, with HTTPS enforced
+  and no custom domain. No custom Actions workflow was added.
+- Public GET checks returned HTTP 200 for both language pages, the stylesheet,
+  and Sitemap. Response bodies matched the local files byte-for-byte; content
+  types and final URLs were correct, with no `X-Robots-Tag` indexing restriction.
+- Repository About and Website were updated after these checks. Both READMEs
+  link to their respective public language pages. The five existing Topics remain.
+- Bing account verification and Sitemap submission remain pending: no real
+  account verification tag or file was provided. IndexNow remains optional and
+  has not been enabled or used. No indexing or search-performance result is claimed.
 
-Suggested **About** text:
+Before publication, inspection of `a43ab07` found Pages disabled, Website empty,
+and the proposed public URL returning HTTP 404. Those were the starting conditions,
+not the current deployment state.
+
+## Repository metadata
+
+Published **About** text:
 
 > An open-source Agent Skill for problem framing and assumption testing across coding, debugging, architecture, scientific research, and product decisions.
 
@@ -25,18 +36,16 @@ Keep the existing relevant **Topics**:
 `agent-skills`, `ai-agents`, `hypothesis-testing`, `markdown`, `problem-framing`.
 Topics describe the project; they are not ranking guarantees.
 
-Set **Website** to `https://ordinary-s.github.io/falsify-the-problem/`
-only after the site is publicly reachable and verified below.
-Until then, keep the field empty and do not add a live-site link to either README.
+Published **Website**: <https://ordinary-s.github.io/falsify-the-problem/>.
 
 ## Publish with GitHub Pages
 
 The prepared source is plain HTML and CSS in `docs/`, with `.nojekyll`.
 There is no build step or custom Actions workflow to maintain.
 
-These are **separate release actions requiring the maintainer's confirmation**:
+For future authorized releases:
 
-1. Review the local diff and validation results, then approve the commit and push.
+1. Review the local diff and validation results, then commit and push.
    If changes are reviewed on another branch, merge them into `master` before
    using that branch as the publishing source.
 2. In repository **Settings → Pages → Build and deployment**, choose
@@ -46,13 +55,12 @@ These are **separate release actions requiring the maintainer's confirmation**:
 4. Verify the public resources below. If GitHub reports a different domain or
    redirects to one, update both pages' canonical, hreflang and `og:url`, plus
    both Sitemap URLs and this guide, together before search submission.
-5. After successful public checks, approve updating Website, About, and any
-   desired Topics. Add the confirmed English and Chinese site links to their
-   respective READMEs only at that point.
+5. After successful public checks, update Website and both README website links
+   if the published address has changed. Keep About and Topics accurate.
 
-Expected public resources, **not a statement that they are live**:
+Public resources verified on 2026-09-13:
 
-| Resource | Planned URL | Check |
+| Resource | Public URL | Check |
 | --- | --- | --- |
 | English | `https://ordinary-s.github.io/falsify-the-problem/` | HTTP 200, English HTML |
 | 简体中文 | `https://ordinary-s.github.io/falsify-the-problem/zh/` | HTTP 200, Chinese HTML |
@@ -85,7 +93,7 @@ Tools account. A project-path property is different from ownership of the entire
 3. No verification tag or file has been included in the initial site. Obtain the
    real value from the maintainer's Bing account; do not insert a dummy code.
    Missing account verification does not prevent local README or page work.
-4. Once the site is live and ownership is verified, approve and submit the
+4. Once the site is live and ownership is verified, submit the
    actual Sitemap URL in the account. Inspect Sitemap processing and each page
    with URL Inspection, including its live fetch and indexed status.
 
