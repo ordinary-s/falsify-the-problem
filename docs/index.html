@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>falsify-the-problem | Problem Framing Agent Skill</title>
+  <meta name="description" content="An open-source Agent Skill for problem framing and assumption testing in coding, debugging, architecture, scientific research, and product decisions.">
+  <link rel="canonical" href="https://ordinary-s.github.io/falsify-the-problem/">
+  <link rel="alternate" hreflang="en" href="https://ordinary-s.github.io/falsify-the-problem/">
+  <link rel="alternate" hreflang="zh-CN" href="https://ordinary-s.github.io/falsify-the-problem/zh/">
+  <meta property="og:title" content="falsify-the-problem | Problem Framing Agent Skill">
+  <meta property="og:description" content="An open-source Agent Skill for problem framing and assumption testing in coding, debugging, architecture, scientific research, and product decisions.">
+  <meta property="og:url" content="https://ordinary-s.github.io/falsify-the-problem/">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">falsify-the-problem</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#examples">Examples</a><a href="#workflow">Workflow</a><a href="#install">Install</a><a href="#evidence">Evidence</a>
+        <a class="language" href="zh/" lang="zh-CN" hreflang="zh-CN">简体中文</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container" tabindex="-1">
+    <section class="hero" aria-labelledby="headline">
+      <h1 id="headline"><span>Test the problem.</span><span>Then solve it.</span></h1>
+      <p>An open-source Agent Skill for problem framing and assumption testing across coding, debugging, architecture, scientific research, and product decisions.</p>
+      <div class="actions"><a class="button" href="#install">Install the skill</a><a href="https://github.com/ordinary-s/falsify-the-problem">View on GitHub</a></div>
+    </section>
+    <section class="section" id="why">
+      <h2>Start with the question behind the request</h2>
+      <div class="intro">
+        <p>“Add a cache.” “Use a stronger model.” “Send more notifications.” Each proposed fix can carry an untested explanation of what went wrong. Testing that explanation first can help you choose what to investigate.</p>
+        <p><strong>falsify-the-problem</strong> separates observations from assumptions, compares materially different problem definitions, and looks for evidence that could change the decision. Codex is one way to use it; the method applies across domains.</p>
+      </div>
+      <div class="callout"><p><strong>Keeping the original framing is a successful result.</strong> <code>KEEP</code> means the problem definition is sufficiently supported for the pending decision. It does not prove the proposed solution will work.</p></div>
+    </section>
+    <section class="section" id="examples">
+      <h2>Three ways to use it</h2>
+      <p class="note">Illustrative scenarios only. These are not production incidents, executed experiments, or measured results.</p>
+      <div class="scenarios">
+        <article class="scenario"><h3>Development</h3><div>
+          <blockquote>“The API is slower. Add a cache.”</blockquote>
+          <p>Is this database service time, queueing, a downstream delay, or a measurement issue? Compare representative slow and typical requests from the same window, reconciling end-to-end latency with those stages.</p>
+          <p class="note">Rising queue time with stable database time would weaken the database framing. Incomplete traces may leave the question unresolved.</p>
+        </div></article>
+        <article class="scenario"><h3>Scientific research</h3><div>
+          <blockquote>“The experiment underperformed. Use a stronger model.”</blockquote>
+          <p>Model capability is one hypothesis. Compare the same saved inputs through training and evaluation preprocessing, holding the model and scoring fixed, to test whether an input-path mismatch contributes.</p>
+          <p class="note">A difference would support a pipeline contribution. No difference would leave model capability and other explanations open; it would not prove which one is responsible.</p>
+        </div></article>
+        <article class="scenario"><h3>Product decisions</h3><div>
+          <blockquote>“Retention fell. Send more notifications.”</blockquote>
+          <p>Did people experience value and forget to return, or never experience value? Compare the same cohort's return behavior by a verified first-value event, checking event coverage within that comparison.</p>
+          <p class="note">The pattern can guide further investigation. An association does not prove that notifications improve retention; the expected return interval may also need testing.</p>
+        </div></article>
+      </div>
+    </section>
+    <section class="section" id="workflow">
+      <h2>One workflow, across domains</h2>
+      <ol class="steps">
+        <li><h3>Separate the claims</h3><p>Preserve sources. Distinguish observations, interpretations, causal hypotheses, the problem definition, and the proposed fix.</p></li>
+        <li><h3>Compare definitions</h3><p>Find plausible alternatives and their key assumptions. Check for a consequential shared blind spot when warranted.</p></li>
+        <li><h3>Choose one test</h3><p>Select one primary discriminating test per round, with contrasting outcomes. Inspect accessible, permitted evidence.</p></li>
+        <li><h3>Update and hand back</h3><p>Revise support from evidence. Continue only while useful, then give a verdict and return control to the host.</p></li>
+      </ol>
+      <h3>What the verdict means</h3>
+      <dl class="verdicts">
+        <dt><code>KEEP</code></dt><dd>The original framing is sufficiently validated and best supported. The host can continue already authorized work.</dd>
+        <dt><code>WEAKEN</code></dt><dd>The original framing lost material support but remains possible. Further solution design is not yet released.</dd>
+        <dt><code>KILL</code></dt><dd>The original framing is no longer viable, and no supported replacement is established. Solving from that premise is blocked.</dd>
+        <dt><code>REFORMULATE</code></dt><dd>A materially different replacement is sufficiently supported. Return the named replacement for downstream validation; the old solution is not released.</dd>
+        <dt><code>INSUFFICIENT EVIDENCE</code></dt><dd>The evidence cannot discriminate enough. Investigate when useful, or identify the minimum missing evidence.</dd>
+      </dl>
+      <p class="note"><code>BYPASS</code> is a decision not to activate the skill, not an evidence verdict. A verdict grants no new permissions. After <code>REFORMULATE</code>, the host can validate the new framing using existing evidence and proceed if it warrants <code>KEEP</code>.</p>
+    </section>
+    <section class="section" id="install">
+      <h2>Install and make your first call</h2>
+      <div class="install-content">
+        <p>The complete skill is one <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/SKILL.md">SKILL.md</a> file. It needs no package, API key, server, or database of its own. Set up your host agent separately.</p>
+        <p>For Codex local skills, choose <strong>one</strong> scope. Locations and CLI / IDE invocation follow the <a href="https://learn.chatgpt.com/docs/build-skills">official skills documentation</a>.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Install and make your first call">
+          <table>
+            <thead><tr><th scope="col">Scope</th><th scope="col">Folder containing SKILL.md</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Project: sessions in this project</th><td><code>&lt;project&gt;/.agents/skills/falsify-the-problem/</code></td></tr>
+              <tr><th scope="row">User: sessions across your projects</th><td><code>~/.agents/skills/falsify-the-problem/</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Run these commands in a terminal with Git installed. Project commands start in the target project root; user commands work from any directory. An existing populated destination makes the clone fail. Preserve existing installations.</p>
+        <details open><summary>Windows PowerShell</summary>
+<h4>Project scope</h4><pre tabindex="0" aria-label="Installation commands; scroll horizontally if needed"><code>New-Item -ItemType Directory -Force -Path .agents/skills | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem</code></pre>
+<h4>User scope</h4><pre tabindex="0" aria-label="Installation commands; scroll horizontally if needed"><code>$skillRoot = Join-Path $env:USERPROFILE &#x27;.agents/skills&#x27;
+New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git (Join-Path $skillRoot &#x27;falsify-the-problem&#x27;)</code></pre>
+</details>
+<details><summary>macOS / Linux: Bash or Zsh</summary>
+<h4>Project scope</h4><pre tabindex="0" aria-label="Installation commands; scroll horizontally if needed"><code>mkdir -p .agents/skills
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem</code></pre>
+<h4>User scope</h4><pre tabindex="0" aria-label="Installation commands; scroll horizontally if needed"><code>mkdir -p &quot;$HOME/.agents/skills&quot;
+git clone https://github.com/ordinary-s/falsify-the-problem.git &quot;$HOME/.agents/skills/falsify-the-problem&quot;</code></pre>
+</details>
+
+        <p class="note">You can also copy only SKILL.md from a downloaded repository into the chosen folder. Codex detects changes automatically; restart it if the skill does not appear. In Codex CLI or the IDE extension, use /skills or type $ to select it.</p>
+        <h3>Then, inside Codex CLI or the IDE extension</h3>
+        <p>Paste this into the Codex prompt, not a terminal:</p>
+        <pre class="prompt" tabindex="0" aria-label="First invocation in Codex"><code>$falsify-the-problem
+Our API has become slower and we are considering a cache.
+Inspect the available evidence, distinguish observations from assumptions,
+and test the problem framing before proposing a solution.</code></pre>
+        <p class="note">These setup commands do not establish skill activation or model behavior. macOS and Linux installation and cross-host behavior have not been verified in this documentation change.</p>
+        <p><strong>Using another host?</strong> Follow its documented skill-folder mechanism, or load the complete Markdown instructions and explicitly ask to use them. Discovery, invocation, and permissions vary; identical behavior across hosts is not guaranteed. See the <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/README.md#installation">full installation guide</a>.</p>
+      </div>
+    </section>
+    <section class="section" id="when">
+      <h2>Use it where the framing matters</h2>
+      <div class="fit"><div><h3>A useful time to call it</h3>
+        <ul><li>You explicitly want to test a problem definition.</li><li>An uncertain diagnosis is leading to a costly architecture or product change.</li><li>Repeated debugging or research attempts keep the same untested premise.</li></ul>
+      </div><div><h3>Usually skip automatic activation</h3>
+        <ul><li>The diagnosis is already verified.</li><li>The task is a typo, translation, formatting change, or obvious compiler fix.</li><li>The change is cheap and reversible, with no material framing uncertainty.</li></ul>
+      </div></div>
+      <p class="callout">Automatic activation requires both meaningful framing uncertainty and non-trivial intervention cost or risk. Explicit invocation can end with a brief <code>KEEP</code> when existing evidence is sufficient.</p>
+    </section>
+    <section class="section" id="evidence">
+      <h2>Read the evidence and its limits</h2>
+      <div class="intro">
+        <p>The repository includes 20 synthetic cases, harder formulation cases, focused coverage cases, scoring criteria, and development records with saved outputs. The records retain strong baseline results, mixed findings, and known failures.</p>
+        <p><strong>These are development evaluations, not a statistically valid benchmark.</strong> They do not establish general superiority over a raw model or effectiveness across models and hosts. Earlier records describe their tested snapshots, not every later version.</p>
+        <p>This is Markdown guidance. It cannot enforce runtime gates or a sandbox, automatically identify causality, guarantee a correct replacement framing, or replace specialist review. Evidence access and quality, host permissions, and model judgment affect the result.</p>
+      </div>
+      <ul class="resources">
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/README.md">Evaluation guide</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/cases.md">20 cases</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/rubric.md">Scoring rubric</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/smoke-tests.md">Smoke tests</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/hard-suite.md">Harder-suite findings</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/coverage-eval.md">Coverage results</a></li>
+      </ul>
+      <p>Open source under the <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/LICENSE">MIT License</a>. Read the <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/README.md">README</a> or inspect the complete <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/SKILL.md">skill instructions</a>.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>A Markdown instruction skill. Open source, MIT licensed.</p>
+      <a href="zh/" lang="zh-CN" hreflang="zh-CN">简体中文</a>
+    </div>
+  </footer>
+</body>
+</html>

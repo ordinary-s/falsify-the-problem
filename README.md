@@ -1,21 +1,111 @@
-# falsify-the-problem
+# falsify-the-problem — An Agent Skill for Problem Framing
 
 English | [简体中文](README.zh-CN.md)
 
 > Stop solving the wrong problem faster.
 
-A lightweight Agent Skill that challenges the problem formulation before
-proposing solutions. It asks **Are we solving the right problem?**
+An open-source Agent Skill for problem framing and assumption testing across
+coding, debugging, architecture, scientific research, and product decisions.
+It asks **Are we solving the right problem?** before proposing solutions.
+Start with [installation](#installation) and a [first invocation](#first-invocation-in-codex-cli-or-the-ide-extension).
+
+**Illustrative scenarios, not production incidents or measured results:**
 
 | Before | After |
 | --- | --- |
 | "API P99 rose from 300 ms to 2.8 s. Add Redis." -> design a cache | Attribute the reported latency, test whether database time actually dominates the slow tail, then keep or replace that framing |
+| "The experiment underperformed. We need a stronger model." -> increase model capacity | Compare the same saved inputs through training and evaluation preprocessing, holding the model and scoring fixed; test whether an input-path mismatch contributes before attributing the result to model capability |
 | "Retention is low. Add push notifications." -> build reminders | Test whether users experienced value and forgot to return, or never experienced value in the first place |
 
 One Markdown file. No dependency, API key, server, or database. The distinctive
 focus is a falsifiable framing, materially different alternatives, one primary
 discriminating test per investigation round, evidence updates, and an explicit
 handoff before solution design. `KEEP` is a successful result.
+
+## Installation
+
+The complete runtime artifact is [SKILL.md](SKILL.md). Evaluation files are
+development materials, not dependencies. The skill itself needs no package,
+API key, or service; your host agent has its own setup requirements.
+
+### Codex: choose an installation scope
+
+Codex is one way to use this cross-domain skill. According to the
+[official skills documentation](https://learn.chatgpt.com/docs/build-skills),
+local skills can live in either of these locations:
+
+| Scope | Folder containing `SKILL.md` | Available to |
+| --- | --- | --- |
+| Project | `<project>/.agents/skills/falsify-the-problem/` | Codex sessions in that project |
+| User | `~/.agents/skills/falsify-the-problem/` | Codex sessions across your projects |
+
+Choose one scope. Run the commands below in a **terminal**, not in the Codex
+prompt. Git must be installed. Project commands start in the root of the project
+where you want to use the skill; user commands can start in any directory.
+These commands clone into a new folder and will fail if the destination is
+already populated. Keep an existing installation instead of overwriting it.
+
+**Windows PowerShell, project scope:**
+
+```powershell
+New-Item -ItemType Directory -Force -Path .agents/skills | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem
+```
+
+**Windows PowerShell, user scope:**
+
+```powershell
+$skillRoot = Join-Path $env:USERPROFILE '.agents/skills'
+New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git (Join-Path $skillRoot 'falsify-the-problem')
+```
+
+**macOS / Linux, Bash or Zsh, project scope:**
+
+```bash
+mkdir -p .agents/skills
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem
+```
+
+**macOS / Linux, Bash or Zsh, user scope:**
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+git clone https://github.com/ordinary-s/falsify-the-problem.git "$HOME/.agents/skills/falsify-the-problem"
+```
+
+Alternatively, download or clone this repository elsewhere and copy only
+`SKILL.md` into the chosen `falsify-the-problem` folder. Codex detects skill
+changes automatically; restart it if the skill does not appear. In Codex CLI
+or the IDE extension, use `/skills` or type `$` to select the skill.
+
+### First invocation in Codex CLI or the IDE extension
+
+Paste this into the **Codex prompt**, not PowerShell or a shell:
+
+```text
+$falsify-the-problem
+Our API has become slower and we are considering a cache.
+Inspect the available evidence, distinguish observations from assumptions,
+and test the problem framing before proposing a solution.
+```
+
+The local setup commands do not establish skill activation or model behavior.
+macOS and Linux installation and cross-host behavior have not been verified in
+this documentation change. See [Usage](#usage) for ordinary-language examples.
+
+### Other hosts
+
+1. Download or clone this repository into a local `falsify-the-problem` folder.
+2. For a host with skill-folder support, place the folder containing `SKILL.md` in
+   that host's documented skill location and use its normal reload/discovery procedure.
+   You can copy just `SKILL.md` into a folder of the same name.
+3. For a host that accepts reusable Markdown instructions, attach or load the
+   complete `SKILL.md` and explicitly request its use before solving the task.
+
+Paths, discovery, invocation syntax, and tool permissions are host-specific. The
+skill is designed to be portable across agents that support reusable Markdown
+instructions or skill-like workflows; identical behavior across hosts is not guaranteed.
 
 ## Why
 
@@ -118,23 +208,6 @@ this skill. If explicitly invoked, a brief `KEEP` releases the host to fix it.
 The difference is emphasis, operational protocol, evidence update, and stopping
 condition, not a claim to have invented reframing.
 
-## Installation
-
-The complete runtime artifact is [SKILL.md](SKILL.md). This repository is its
-distribution folder; evaluation files are development materials, not dependencies.
-
-1. Download or clone this repository into a local `falsify-the-problem` folder.
-2. For a host with skill-folder support, place the folder containing `SKILL.md` in
-   that host's documented skill location and use its normal reload/discovery procedure.
-   You can copy just `SKILL.md` into a folder of the same name.
-3. For a host that accepts reusable Markdown instructions, attach or load the
-   complete `SKILL.md` and explicitly request its use before solving the task.
-
-There is no package installation or service to start. Paths, discovery, invocation
-syntax, and tool permissions are host-specific. The skill is designed to be
-portable across agents that support reusable Markdown instructions or skill-like
-workflows; identical behavior across hosts is not guaranteed.
-
 ## Usage
 
 ```text
@@ -226,3 +299,5 @@ multi-agent system, orchestration engine, memory system, or AI scientist.
 ## License
 
 [MIT](LICENSE).
+
+Maintainers: see [Pages publishing and Bing setup](SEO.md).

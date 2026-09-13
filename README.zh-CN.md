@@ -1,20 +1,103 @@
-# falsify-the-problem
+# falsify-the-problem：问题定义检验 Agent Skill
 
 [English](README.md) | 简体中文
 
 > 尽早发现：你可能正在解决错误的问题。
 
-一个轻量的 Agent Skill，在提出方案之前，先检验当前的问题定义。
-它问的是：**我们正在解决的问题，真的对吗？**
+一个用于问题定义检验与假设检验的开源 Agent Skill，适用于编码、调试、架构、科研与产品决策。
+在提出方案之前，它先问：**我们正在解决的问题，真的对吗？**
+从[安装](#安装)和[首次调用](#在-codex-cli-或-ide-扩展内首次调用)开始使用。
+
+**以下均为示意，不是实际生产事故或实测结果：**
 
 | 使用前 | 使用后 |
 | --- | --- |
 | “API P99 从 300 ms 涨到 2.8 s，加 Redis 吧。” → 开始设计缓存 | 先核对延迟来自哪里，检验数据库耗时是否确实主导了尾延迟，再决定保留还是更换问题定义 |
+| “实验结果不好，需要更强的模型。” → 增大模型容量 | 固定模型与评分方式，让同一批已保存输入经过训练和评估两种预处理路径；先检验输入路径不一致是否造成部分差异，再判断是否与模型能力有关 |
 | “留存低，加推送吧。” → 开始做提醒功能 | 先区分：用户体验到了价值却忘了回来，还是从来没有体验到价值 |
 
 只需一个 Markdown 文件，无依赖、API Key、服务器或数据库。
 它聚焦于可证伪的问题定义、有实质差异的替代定义、每轮一个主要区分性检验，
 以及根据证据更新判断，并在设计方案之前明确交还控制权。`KEEP` 也是成功结果。
+
+## 安装
+
+完整的运行时指令只有 [SKILL.md](SKILL.md)。评测文件属于开发材料，不是运行依赖。
+Skill 本身无需安装软件包、提供 API Key 或启动服务；宿主 Agent 有自己的配置要求。
+
+### Codex：选择安装范围
+
+Codex 是使用这个跨领域 Skill 的入口之一。根据
+[官方 Skills 文档](https://learn.chatgpt.com/docs/build-skills)，可以选择以下本地位置：
+
+| 范围 | 包含 `SKILL.md` 的文件夹 | 可用范围 |
+| --- | --- | --- |
+| 项目级 | `<项目>/.agents/skills/falsify-the-problem/` | 该项目中的 Codex 会话 |
+| 用户级 | `~/.agents/skills/falsify-the-problem/` | 当前用户不同项目中的 Codex 会话 |
+
+选择其中一种范围。以下命令在**终端**运行，不要粘贴到 Codex 对话框。
+需要先安装 Git。项目级命令从准备使用 Skill 的项目根目录执行；用户级命令可在任意目录执行。
+命令会克隆到新文件夹；目标已有内容时会失败。已有安装应保留，不要覆盖。
+
+**Windows PowerShell，项目级：**
+
+```powershell
+New-Item -ItemType Directory -Force -Path .agents/skills | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem
+```
+
+**Windows PowerShell，用户级：**
+
+```powershell
+$skillRoot = Join-Path $env:USERPROFILE '.agents/skills'
+New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git (Join-Path $skillRoot 'falsify-the-problem')
+```
+
+**macOS / Linux，Bash 或 Zsh，项目级：**
+
+```bash
+mkdir -p .agents/skills
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem
+```
+
+**macOS / Linux，Bash 或 Zsh，用户级：**
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+git clone https://github.com/ordinary-s/falsify-the-problem.git "$HOME/.agents/skills/falsify-the-problem"
+```
+
+也可以先下载或克隆仓库到其他目录，再将 `SKILL.md` 单独复制到所选位置的
+`falsify-the-problem` 文件夹。Codex 会自动发现 Skill 变化；若未出现，请重启 Codex。
+在 Codex CLI 或 IDE 扩展内，可用 `/skills` 或输入 `$` 选择 Skill。
+
+### 在 Codex CLI 或 IDE 扩展内首次调用
+
+将下面内容粘贴到 **Codex 对话框**，不要在 PowerShell 或其他 shell 中执行：
+
+```text
+$falsify-the-problem
+我们的接口变慢了，正在考虑加缓存。
+先检查可获取的证据，区分观察与假设，
+在提出解决方案之前检验这个问题定义。
+```
+
+本地安装命令不能证明 Skill 已成功启用或模型会如何表现。
+本次文档修改未验证 macOS、Linux 安装及跨宿主行为。
+更多自然语言示例见[使用方式](#使用方式)。
+
+### 其他宿主
+
+1. 下载或克隆仓库到本地的 `falsify-the-problem` 文件夹。
+2. 如果宿主支持 Skill 文件夹，将包含 `SKILL.md` 的文件夹放入该宿主文档指定的位置，
+   按其正常流程重新加载或发现 Skill。也可以只把 `SKILL.md` 复制到同名文件夹中。
+3. 如果宿主支持可复用的 Markdown 指令，附加或加载完整的 `SKILL.md`，
+   并在求解任务之前显式要求使用它。
+
+存放路径、发现机制、调用语法和工具权限取决于具体宿主。
+设计上，它可以用于支持可复用 Markdown 指令或类似 Skill 工作流的 Agent；
+但尚不能保证不同宿主上的行为一致。
 
 ## 为什么需要它
 
@@ -110,21 +193,6 @@
 区别在于侧重点、操作流程、证据更新方式和停止条件。
 本项目不声称发明了“重新定义问题”这件事。
 
-## 安装
-
-完整的运行时指令只有 [SKILL.md](SKILL.md)。仓库是它的分发目录，
-评测文件属于开发材料，不是运行依赖。
-
-1. 下载或克隆仓库到本地的 `falsify-the-problem` 文件夹。
-2. 如果宿主支持 Skill 文件夹，将包含 `SKILL.md` 的文件夹放入该宿主文档指定的位置，
-   按其正常流程重新加载或发现 Skill。也可以只把 `SKILL.md` 复制到同名文件夹中。
-3. 如果宿主支持可复用的 Markdown 指令，附加或加载完整的 `SKILL.md`，
-   并在求解任务之前显式要求使用它。
-
-无需安装软件包或启动服务。存放路径、发现机制、调用语法和工具权限取决于具体宿主。
-设计上，它可以用于支持可复用 Markdown 指令或类似 Skill 工作流的 Agent；
-但尚不能保证不同宿主上的行为一致。
-
 ## 使用方式
 
 ```text
@@ -208,3 +276,5 @@ Markdown 指令只能引导宿主，不能强制执行运行时门槛。
 ## 许可证
 
 [MIT](LICENSE)。
+
+维护者请参见 [Pages 发布与 Bing 接入说明](SEO.md)。

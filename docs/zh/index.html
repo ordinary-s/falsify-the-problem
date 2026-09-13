@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>falsify-the-problem：问题定义检验 Agent Skill</title>
+  <meta name="description" content="用于编码、调试、架构、科研与产品决策的开源 Agent Skill。区分观察与假设，比较问题定义，用证据更新判断，并提供安装与首次调用说明。">
+  <link rel="canonical" href="https://ordinary-s.github.io/falsify-the-problem/zh/">
+  <link rel="alternate" hreflang="en" href="https://ordinary-s.github.io/falsify-the-problem/">
+  <link rel="alternate" hreflang="zh-CN" href="https://ordinary-s.github.io/falsify-the-problem/zh/">
+  <meta property="og:title" content="falsify-the-problem：问题定义检验 Agent Skill">
+  <meta property="og:description" content="用于编码、调试、架构、科研与产品决策的开源 Agent Skill。区分观察与假设，比较问题定义，用证据更新判断，并提供安装与首次调用说明。">
+  <meta property="og:url" content="https://ordinary-s.github.io/falsify-the-problem/zh/">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">falsify-the-problem</a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#examples">使用示意</a><a href="#workflow">工作流程</a><a href="#install">安装</a><a href="#evidence">评测</a>
+        <a class="language" href="../" lang="en" hreflang="en">English</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container" tabindex="-1">
+    <section class="hero" aria-labelledby="headline">
+      <h1 id="headline"><span>先检验问题，</span><span>再着手解决。</span></h1>
+      <p>用于编码、调试、架构、科研与产品决策的开源 Agent Skill。在设计方案之前，先检验问题定义与关键假设。</p>
+      <div class="actions"><a class="button" href="#install">安装 Skill</a><a href="https://github.com/ordinary-s/falsify-the-problem">在 GitHub 查看源码</a></div>
+    </section>
+    <section class="section" id="why">
+      <h2>先看看，方案里藏着什么假设</h2>
+      <div class="intro">
+        <p>“加缓存。”“换更强的模型。”“多发推送。”每个方案背后，都可能藏着一个尚未检验的解释。先检验这个解释，有助于确定接下来该调查什么。</p>
+        <p><strong>falsify-the-problem</strong> 区分观察与假设，比较有实质差异的问题定义，寻找足以改变判断的证据。Codex 是使用入口之一；这套方法适用于多个领域。</p>
+      </div>
+      <div class="callout"><p><strong>保留原来的问题定义，也是成功结果。</strong><code>KEEP</code> 表示当前定义已得到足够证据支持，可以服务于待做的决策；它不能证明拟议方案一定有效。</p></div>
+    </section>
+    <section class="section" id="examples">
+      <h2>三个使用示意</h2>
+      <p class="note">以下均为示意，不是实际生产事故、已执行的实验或实测结果。</p>
+      <div class="scenarios">
+        <article class="scenario"><h3>开发与调试</h3><div>
+          <blockquote>“接口变慢了，加缓存吧。”</blockquote>
+          <p>问题来自数据库处理耗时、排队、下游延迟，还是测量方式？在同一时间窗口内，对比有代表性的慢请求与普通请求，核对端到端延迟和这些阶段的耗时。</p>
+          <p class="note">如果排队时间上升而数据库耗时稳定，就会削弱数据库问题的定义。链路记录不完整时，可能仍无法判断。</p>
+        </div></article>
+        <article class="scenario"><h3>科学研究</h3><div>
+          <blockquote>“实验结果不好，需要更强的模型。”</blockquote>
+          <p>模型能力不足只是一个假设。固定模型与评分方式，让同一批已保存输入分别经过训练和评估两种预处理路径，检验输入路径不一致是否造成部分差异。</p>
+          <p class="note">出现差异会支持输入处理存在影响；没有差异时，模型能力及其他解释仍需保留，不能据此确定原因。</p>
+        </div></article>
+        <article class="scenario"><h3>产品决策</h3><div>
+          <blockquote>“留存下降了，多发点推送吧。”</blockquote>
+          <p>用户是体验到了价值却忘了回来，还是从未体验到价值？核实首次价值事件后，在同一用户群中按该事件对比回访表现，并在这次对比中检查事件覆盖情况。</p>
+          <p class="note">这种模式可以指导后续调查，但相关性不能证明推送能提升留存。预期回访周期是否合理，也可能需要检验。</p>
+        </div></article>
+      </div>
+    </section>
+    <section class="section" id="workflow">
+      <h2>不同领域，同一套检验流程</h2>
+      <ol class="steps">
+        <li><h3>拆开各种陈述</h3><p>保留证据来源，区分观察、解释、因果假设、问题定义与拟议方案。</p></li>
+        <li><h3>比较问题定义</h3><p>找出合理的替代定义及关键假设。必要时检查候选是否共享一个重要盲点。</p></li>
+        <li><h3>选择一个检验</h3><p>每轮选择一个主要区分性检验，说明不同结果如何影响判断，直接检查可访问且已获授权的证据。</p></li>
+        <li><h3>更新并交回控制权</h3><p>根据证据修正支持程度。调查仍有价值时继续，否则给出结论，交回宿主 Agent。</p></li>
+      </ol>
+      <h3>如何理解结论</h3>
+      <dl class="verdicts">
+        <dt><code>KEEP</code></dt><dd>原定义已得到充分验证，且获得最多支持。宿主可以继续已获授权的工作。</dd>
+        <dt><code>WEAKEN</code></dt><dd>原定义失去了重要支持，但仍可能成立。尚未放行后续方案设计。</dd>
+        <dt><code>KILL</code></dt><dd>原定义已无法成立，尚未确立有依据的替代定义。不能继续基于该前提求解。</dd>
+        <dt><code>REFORMULATE</code></dt><dd>一个有实质差异的替代定义已得到充分支持。明确返回新定义，交给后续环节验证；旧方案没有因此获准实施。</dd>
+        <dt><code>INSUFFICIENT EVIDENCE</code></dt><dd>现有证据不足以区分候选。调查仍有价值时继续，否则说明最少需要补充什么证据。</dd>
+      </dl>
+      <p class="note"><code>BYPASS</code> 表示不启用 Skill，不属于证据结论。任何结论都不会授予新权限。在 <code>REFORMULATE</code> 之后，宿主可以利用已有证据验证新定义；若获得 <code>KEEP</code>，再继续已授权的工作。</p>
+    </section>
+    <section class="section" id="install">
+      <h2>安装，然后发起第一次调用</h2>
+      <div class="install-content">
+        <p>完整的 Skill 只有一个 <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/SKILL.md">SKILL.md</a> 文件，本身无需软件包、API Key、服务器或数据库。宿主 Agent 需要单独配置。</p>
+        <p>使用 Codex 本地 Skill 时，选择<strong>一种</strong>安装范围。路径与 CLI / IDE 调用方式依据 <a href="https://learn.chatgpt.com/docs/build-skills">官方 Skills 文档</a>。</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="安装，然后发起第一次调用">
+          <table>
+            <thead><tr><th scope="col">范围</th><th scope="col">包含 SKILL.md 的文件夹</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">项目级：该项目的会话</th><td><code>&lt;项目&gt;/.agents/skills/falsify-the-problem/</code></td></tr>
+              <tr><th scope="row">用户级：当前用户的多个项目</th><td><code>~/.agents/skills/falsify-the-problem/</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>以下命令在已安装 Git 的终端中运行。项目级命令从目标项目根目录执行；用户级命令可在任意目录执行。目标文件夹已有内容时，克隆会失败；请保留已有安装。</p>
+        <details open><summary>Windows PowerShell</summary>
+<h4>项目级</h4><pre tabindex="0" aria-label="安装命令；必要时可横向滚动"><code>New-Item -ItemType Directory -Force -Path .agents/skills | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem</code></pre>
+<h4>用户级</h4><pre tabindex="0" aria-label="安装命令；必要时可横向滚动"><code>$skillRoot = Join-Path $env:USERPROFILE &#x27;.agents/skills&#x27;
+New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
+git clone https://github.com/ordinary-s/falsify-the-problem.git (Join-Path $skillRoot &#x27;falsify-the-problem&#x27;)</code></pre>
+</details>
+<details><summary>macOS / Linux：Bash 或 Zsh</summary>
+<h4>项目级</h4><pre tabindex="0" aria-label="安装命令；必要时可横向滚动"><code>mkdir -p .agents/skills
+git clone https://github.com/ordinary-s/falsify-the-problem.git .agents/skills/falsify-the-problem</code></pre>
+<h4>用户级</h4><pre tabindex="0" aria-label="安装命令；必要时可横向滚动"><code>mkdir -p &quot;$HOME/.agents/skills&quot;
+git clone https://github.com/ordinary-s/falsify-the-problem.git &quot;$HOME/.agents/skills/falsify-the-problem&quot;</code></pre>
+</details>
+
+        <p class="note">也可以从已下载的仓库中，只复制 SKILL.md 到所选文件夹。Codex 会自动发现变化；若未出现，请重启 Codex。在 Codex CLI 或 IDE 扩展内，可用 /skills 或输入 $ 选择 Skill。</p>
+        <h3>接着，在 Codex CLI 或 IDE 扩展内调用</h3>
+        <p>将下面内容粘贴到 Codex 对话框，不要在终端中执行：</p>
+        <pre class="prompt" tabindex="0" aria-label="在 Codex 内首次调用"><code>$falsify-the-problem
+我们的接口变慢了，正在考虑加缓存。
+先检查可获取的证据，区分观察与假设，
+在提出解决方案之前检验这个问题定义。</code></pre>
+        <p class="note">这些安装命令不能证明 Skill 已成功启用或模型会如何表现。本次文档修改未验证 macOS、Linux 安装及跨宿主行为。</p>
+        <p><strong>使用其他宿主？</strong>按其文档配置 Skill 文件夹，或加载完整的 Markdown 指令并显式要求使用。发现机制、调用方式与权限因宿主而异，不能保证行为一致。参见<a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/README.zh-CN.md#安装">完整安装说明</a>。</p>
+      </div>
+    </section>
+    <section class="section" id="when">
+      <h2>在问题定义影响决策时使用</h2>
+      <div class="fit"><div><h3>适合调用的时机</h3>
+        <ul><li>你明确希望检验当前的问题定义。</li><li>不确定的诊断正在推动代价较大的架构或产品改动。</li><li>调试或研究反复失败，却一直保留同一个未经检验的前提。</li></ul>
+      </div><div><h3>通常不必自动启用</h3>
+        <ul><li>诊断已经得到验证。</li><li>任务只是改错别字、翻译、排版或修复明显的编译错误。</li><li>改动成本低、可逆，且没有实质性的问题定义不确定性。</li></ul>
+      </div></div>
+      <p class="callout">自动启用需要同时满足：问题定义存在实质不确定性，且干预成本或风险不可忽略。显式调用时，若已有充分证据，可以用简短的 <code>KEEP</code> 结束检验。</p>
+    </section>
+    <section class="section" id="evidence">
+      <h2>查看评测，也了解它的局限</h2>
+      <div class="intro">
+        <p>仓库包含 20 个合成案例、更难的问题定义案例、定向覆盖案例、评分标准，以及保留输出的开发评测记录。记录包含原始模型表现良好的结果、混合发现与已知失败。</p>
+        <p><strong>这些是开发评测，不是具有统计效力的基准证明。</strong>它们不能证明 Skill 普遍优于原始模型，也不能证明跨模型或跨宿主有效。早期记录描述的是当时的测试快照，不代表之后的每个版本。</p>
+        <p>这是 Markdown 指令，无法强制执行运行时门槛或沙盒，也不是自动因果识别系统。它不能保证新的问题定义正确，不能替代专业审查。证据的可访问性与质量、宿主权限和模型判断都会影响结果。</p>
+      </div>
+      <ul class="resources">
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/README.md">评测说明</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/cases.md">20 个案例</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/rubric.md">评分标准</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/smoke-tests.md">冒烟测试</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/hard-suite.md">更难案例的发现</a></li>
+        <li><a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/evals/coverage-eval.md">覆盖检查结果</a></li>
+      </ul>
+      <p>项目以 <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/LICENSE">MIT 许可证</a>开源。可以阅读<a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/README.zh-CN.md">中文 README</a>或查看完整的 <a href="https://github.com/ordinary-s/falsify-the-problem/blob/master/SKILL.md">Skill 指令</a>。</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>一个 Markdown 指令 Skill。以 MIT 许可证开源。</p>
+      <a href="../" lang="en" hreflang="en">English</a>
+    </div>
+  </footer>
+</body>
+</html>
